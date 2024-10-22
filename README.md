@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Questie👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
@@ -71,3 +72,6 @@ npm run reset-project
 ```
 
 This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+=======
+# Questie
+>>>>>>> 3a8cf8d1a35228b5b2f12bc842236bab2694fcb8
