@@ -7,19 +7,19 @@ import person from "@/assets/icons/person.png";
 import profile from "@/assets/icons/profile.png";
 import like from "@/assets/icons/like.png";
 import check from "@/assets/images/check.png";
-import getStarted from "@/assets/images/get-started.png";
 import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
 import signUpTop from "@/assets/images/signup-top.png";
+import background from "@/assets/images/background.png";
 
 export const images = {
   onboarding1,
   onboarding2,
   onboarding3,
-  getStarted,
   signUpTop,
   check,
+  background,
 };
 
 export const icons = {

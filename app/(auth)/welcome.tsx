@@ -1,67 +1,35 @@
-import { Text, TouchableOpacity, View, Image } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import Swiper from "react-native-swiper";
-import { useRef, useState } from "react";
-import { onboarding } from "@/constants";
-import CustomButton from "@/components/CustomButton";
-const Onboarding = () => {
-  const swiperRef = useRef<Swiper>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+import { SignedIn, SignedOut, useUser } from "@clerk/clerk-expo";
+import { Link } from "expo-router";
+import { Text, View, Image } from "react-native";
+import { images } from "@/constants";
 
-  const isLastSlide = activeIndex === onboarding.length - 1;
+export default function Page() {
+  const { user } = useUser();
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-between bg-white">
-      <TouchableOpacity
-        onPress={() => {
-          router.replace("/(auth)/sign-up");
-        }}
-        className="w-full flex justify-end items-end p-5"
-      >
-        <Text className="text-black text-md font-JakartaBold"> Skip </Text>
-      </TouchableOpacity>
-      <Swiper
-        ref={swiperRef}
-        loop={false}
-        dot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />
-        }
-        activeDot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#2034F0] rounded-full" />
-        }
-        onIndexChanged={(index) => setActiveIndex(index)}
-      >
-        {onboarding.map((item) => (
-          <View key={item.id} className="flex items-center justify-center p-5">
-            <Image
-              source={item.image}
-              className="w-full h-[300px]"
-              resizeMode="contain"
-            />
-            <View className="flex felx-row items-center justify-center w-full mt-10">
-              <Text className="text-black text-3xl font-bold mx-10 text-center">
-                {" "}
-                {item.title}
-              </Text>
-            </View>
-            <Text className="text-lg font-JakartaSemiBold text-center text-[#858585] mx-10 mt-3">
-              {item.description}
-            </Text>
-          </View>
-        ))}
-      </Swiper>
-      <CustomButton
-        title={isLastSlide ? "Zaczynamy!" : "Dalej"}
-        onPress={() =>
-          isLastSlide
-            ? router.replace("/(auth)/sign-up")
-            : swiperRef.current?.scrollBy(1)
-        }
-        className="w-11/12 mt-10 mb-5"
+    <View className="flex-1 bg-white relative">
+      <Image
+        source={images.background}
+        className="absolute inset-0 w-full h-full"
+        resizeMode="cover"
       />
-    </SafeAreaView>
+      <View className="flex-1 justify-center items-center">
+        <SignedIn>
+          <Text className="text-2xl font-bold text-black">
+            Hello {user?.emailAddresses[0].emailAddress}
+          </Text>
+        </SignedIn>
+        <SignedOut>
+          <View className="flex items-center">
+            <Link href="/sign-in">
+              <Text className="text-lg text-blue-500">Sign In</Text>
+            </Link>
+            <Link href="/sign-up">
+              <Text className="text-lg text-blue-500 mt-2">Sign Up</Text>
+            </Link>
+          </View>
+        </SignedOut>
+      </View>
+    </View>
   );
-};
-
-export default Onboarding;
+}
